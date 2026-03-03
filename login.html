@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradingHub — Login & Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#050b14',
+                        glass: 'rgba(17, 25, 40, 0.75)',
+                        glassborder: 'rgba(255,255,255,0.10)',
+                        primary: '#3b82f6',
+                        secondary: '#8b5cf6',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #050b14;
+        }
+
+        .glass-panel {
+            background: rgba(17, 25, 40, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+
+        @keyframes blob {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+        }
+
+        .input-group input:focus~label,
+        .input-group input:not(:placeholder-shown)~label {
+            transform: translateY(-24px) scale(0.85);
+            color: #3b82f6;
+        }
+
+        .mode-toggle {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+
+<body class="text-gray-200 min-h-screen flex items-center justify-center p-4 overflow-hidden">
+
+    <div class="fixed inset-0 z-[-1]">
+        <div class="absolute top-[10%] left-[10%] w-72 h-72 bg-primary/10 rounded-full blur-[100px] animate-blob"></div>
+        <div class="absolute bottom-[20%] right-[10%] w-72 h-72 bg-secondary/10 rounded-full blur-[100px] animate-blob"
+            style="animation-delay: 2s"></div>
+        <div class="absolute top-[40%] right-[30%] w-64 h-64 bg-accent/5 rounded-full blur-[80px] animate-blob"
+            style="animation-delay: 4s"></div>
+    </div>
+
+    <div class="w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+
+        <!-- Feature Area (Visible on LG) -->
+        <div class="hidden lg:flex flex-col flex-1 text-left space-y-10">
+            <div class="space-y-4">
+                <div
+                    class="w-16 h-16 bg-gradient-to-tr from-primary to-secondary rounded-2xl flex items-center justify-center mb-6 shadow-xl shadow-primary/20">
+                    <i class="fa-solid fa-chart-line text-white text-3xl"></i>
+                </div>
+                <h2 class="text-5xl font-black text-white leading-tight">Elite Trading <br> <span
+                        class="text-primary">Starts Here.</span></h2>
+                <p class="text-gray-400 text-lg max-w-md">Join TradingHub to access real-time AI signals, professional
+                    global market analytics, and advanced account management tools.</p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6">
+                <div class="flex items-center gap-5 group">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:border-primary/30 transition-all">
+                        <i class="fa-solid fa-bolt text-primary"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold">Real-time AI Signals</h4>
+                        <p class="text-gray-500 text-sm">Instant FX & Crypto buy/sell zones with 75%+ accuracy.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-5 group">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-secondary/20 group-hover:border-secondary/30 transition-all">
+                        <i class="fa-solid fa-globe text-secondary"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold">Global Market Coverage</h4>
+                        <p class="text-gray-500 text-sm">Forex, Crypto, and CSE (LK) markets tracked 24/7.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-5 group">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-accent/20 group-hover:border-accent/30 transition-all">
+                        <i class="fa-solid fa-briefcase text-accent"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold">Professional Management</h4>
+                        <p class="text-gray-500 text-sm">Secure account management with 50/50 profit share.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auth Card Area -->
+        <div class="w-full max-w-md">
+            <!-- Mobile Logo -->
+            <div class="lg:hidden text-center mb-10">
+                <div
+                    class="w-16 h-16 bg-gradient-to-tr from-primary to-secondary rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-primary/30">
+                    <i class="fa-solid fa-chart-line text-white text-2xl"></i>
+                </div>
+                <h1 class="text-3xl font-black text-white tracking-tight">TradingHub</h1>
+            </div>
+
+            <div class="glass-panel rounded-[2rem] p-8 lg:p-10 shadow-2xl relative overflow-hidden">
+                <!-- Glossy accent -->
+                <div
+                    class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent">
+                </div>
+
+                <!-- Tab Switcher -->
+                <div class="flex bg-black/40 rounded-2xl p-1.5 mb-8">
+                    <button id="loginTab"
+                        class="flex-1 py-3 rounded-xl text-sm font-bold transition-all text-white bg-white/10"
+                        onclick="setMode('login')">Sign In</button>
+                    <button id="registerTab"
+                        class="flex-1 py-3 rounded-xl text-sm font-bold transition-all text-gray-400 hover:text-white"
+                        onclick="setMode('register')">Register</button>
+                </div>
+
+                <form id="authForm" class="space-y-6">
+                    <div class="space-y-1">
+                        <h2 id="formTitle" class="text-2xl font-black text-white">Welcome back.</h2>
+                        <p id="formSub" class="text-gray-500 text-sm">Enter your credentials to continue.</p>
+                    </div>
+
+                    <div id="registerFields" class="hidden space-y-6">
+                        <div class="relative group">
+                            <i
+                                class="fa-solid fa-user absolute left-4 top-4 text-gray-500 group-focus-within:text-primary transition-colors"></i>
+                            <input type="text" id="regName" placeholder="Full Name"
+                                class="w-full bg-black/40 border border-white/10 rounded-xl pl-11 pr-4 py-4 text-sm text-white focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 transition-all placeholder-gray-600">
+                        </div>
+                    </div>
+
+                    <div class="relative group">
+                        <i
+                            class="fa-solid fa-envelope absolute left-4 top-4 text-gray-500 group-focus-within:text-primary transition-colors"></i>
+                        <input type="email" id="authEmail" required placeholder="Email Address"
+                            class="w-full bg-black/40 border border-white/10 rounded-xl pl-11 pr-4 py-4 text-sm text-white focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 transition-all placeholder-gray-600">
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="relative group">
+                            <i
+                                class="fa-solid fa-lock absolute left-4 top-4 text-gray-500 group-focus-within:text-primary transition-colors"></i>
+                            <input type="password" id="authPass" required placeholder="Password"
+                                class="w-full bg-black/40 border border-white/10 rounded-xl pl-11 pr-12 py-4 text-sm text-white focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/20 transition-all placeholder-gray-600">
+                            <button type="button" onclick="togglePass()"
+                                class="absolute right-4 top-4 text-gray-600 hover:text-white transition-colors">
+                                <i id="passIcon" class="fa-solid fa-eye-slash text-xs"></i>
+                            </button>
+                        </div>
+                        <div id="loginAddons" class="flex items-center justify-between px-1">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox"
+                                    class="w-4 h-4 rounded border-white/10 bg-black/40 text-primary focus:ring-offset-0 focus:ring-primary">
+                                <span class="text-xs text-gray-500">Remember me</span>
+                            </label>
+                            <button type="button" onclick="handleForgotPassword()"
+                                class="text-xs font-bold text-primary hover:text-blue-400 transition-colors">Forgot
+                                Password?</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitBtn"
+                        class="w-full bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white font-bold py-4 rounded-xl transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-2 group transform active:scale-[0.98]">
+                        <span id="btnText">Continue</span>
+                        <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </form>
+
+                <div class="mt-8">
+                    <div class="relative flex items-center justify-center mb-6">
+                        <div class="flex-grow border-t border-white/5"></div>
+                        <span
+                            class="flex-shrink mx-4 text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">Social
+                            Connect</span>
+                        <div class="flex-grow border-t border-white/5"></div>
+                    </div>
+
+                    <button id="googleBtn"
+                        class="w-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-3 active:scale-[0.98]">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" class="w-5 h-5"
+                            alt="Google">
+                        Sign in with Google
+                    </button>
+                </div>
+
+                <p id="modeSwitchHint" class="text-center text-xs text-gray-500 mt-10">
+                    Don't have an account? <a href="#"
+                        class="text-primary hover:text-white underline decoration-primary/30 underline-offset-4 transition-all font-bold"
+                        onclick="setMode('register')">Sign up for free</a>
+                </p>
+            </div>
+
+            <div class="mt-8 text-center">
+                <p class="text-[10px] text-gray-600 uppercase tracking-[0.2em] font-medium">&copy; 2026 TradingHub Pro
+                    &middot; Secure Platform</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js';
+        import {
+            getAuth,
+            signInWithEmailAndPassword,
+            createUserWithEmailAndPassword,
+            GoogleAuthProvider,
+            signInWithPopup,
+            updateProfile,
+            sendPasswordResetEmail
+        } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js';
+        import { firebaseConfig } from './assets/js/firebase-config.js';
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        let mode = 'login';
+
+        // Custom Toast Helper (mimics main.js system)
+        function notify(msg, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            if (!container) return alert(msg);
+
+            const toast = document.createElement('div');
+            toast.className = 'p-4 rounded-2xl bg-black/90 border border-white/10 shadow-2xl flex items-center gap-3 animate-slide-in';
+            toast.style.cssText = "pointer-events:all; transform: translateX(120%); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s; opacity: 0; min-width: 300px;";
+
+            const colors = { success: '#10b981', error: '#ef4444', info: '#3b82f6' };
+            const icons = { success: 'fa-circle-check', error: 'fa-circle-exclamation', info: 'fa-circle-info' };
+
+            toast.innerHTML = `
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style="background: ${colors[type]}15; border: 1px solid ${colors[type]}30">
+                    <i class="fa-solid ${icons[type]}" style="color: ${colors[type]}"></i>
+                </div>
+                <div class="flex-1">
+                    <p class="text-xs font-bold text-white">${msg}</p>
+                </div>
+            `;
+
+            container.appendChild(toast);
+            requestAnimationFrame(() => { toast.style.transform = 'translateX(0)'; toast.style.opacity = '1'; });
+            setTimeout(() => {
+                toast.style.transform = 'translateX(120%)'; toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 400);
+            }, 5000);
+        }
+
+        // Create toast container if missing
+        if (!document.getElementById('toastContainer')) {
+            const tc = document.createElement('div');
+            tc.id = 'toastContainer';
+            tc.style.cssText = "position:fixed; bottom:20px; right:20px; z-index:9999; display:flex; flex-direction:column-reverse; gap:10px;";
+            document.body.appendChild(tc);
+        }
+
+        window.setMode = (m) => {
+            mode = m;
+            const isReg = mode === 'register';
+            document.getElementById('registerFields').classList.toggle('hidden', !isReg);
+            document.getElementById('loginAddons').classList.toggle('hidden', isReg);
+
+            document.getElementById('formTitle').textContent = isReg ? 'Create Account' : 'Welcome back.';
+            document.getElementById('formSub').textContent = isReg ? 'Join thousands of professional traders.' : 'Enter your credentials to continue.';
+            document.getElementById('btnText').textContent = isReg ? 'Create Free Account' : 'Sign In to Dashboard';
+
+            // Tab styles
+            document.getElementById('loginTab').className = isReg ? 'flex-1 py-3 rounded-xl text-sm font-bold text-gray-500 hover:text-gray-300' : 'flex-1 py-3 rounded-xl text-sm font-bold text-white bg-white/10';
+            document.getElementById('registerTab').className = !isReg ? 'flex-1 py-3 rounded-xl text-sm font-bold text-gray-500 hover:text-gray-300' : 'flex-1 py-3 rounded-xl text-sm font-bold text-white bg-white/10';
+
+            document.getElementById('modeSwitchHint').innerHTML = isReg ?
+                'Already have an account? <a href="#" class="text-primary hover:text-white underline decoration-primary/30 font-bold" onclick="setMode(\'login\')">Login here</a>' :
+                'Don\'t have an account? <a href="#" class="text-primary hover:text-white underline decoration-primary/30 font-bold" onclick="setMode(\'register\')">Sign up for free</a>';
+        };
+
+        window.togglePass = () => {
+            const p = document.getElementById('authPass');
+            const i = document.getElementById('passIcon');
+            if (p.type === 'password') {
+                p.type = 'text';
+                i.classList.replace('fa-eye-slash', 'fa-eye');
+            } else {
+                p.type = 'password';
+                i.classList.replace('fa-eye', 'fa-eye-slash');
+            }
+        };
+
+        window.handleForgotPassword = async () => {
+            const email = document.getElementById('authEmail').value;
+            if (!email) return notify('Please enter your email address first.', 'info');
+
+            try {
+                await sendPasswordResetEmail(auth, email);
+                notify('Password reset email sent! Check your inbox.', 'success');
+            } catch (err) {
+                notify(err.message, 'error');
+            }
+        };
+
+        document.getElementById('authForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('authEmail').value;
+            const pass = document.getElementById('authPass').value;
+            const name = document.getElementById('regName')?.value;
+            const btn = document.getElementById('submitBtn');
+
+            btn.disabled = true;
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-lg"></i>';
+
+            try {
+                if (mode === 'register') {
+                    if (pass.length < 6) throw new Error('Password must be at least 6 characters.');
+                    const cred = await createUserWithEmailAndPassword(auth, email, pass);
+                    if (name) await updateProfile(cred.user, { displayName: name });
+                    notify('Account created! Welcome to TradingHub.', 'success');
+                } else {
+                    await signInWithEmailAndPassword(auth, email, pass);
+                    notify('Login successful!', 'success');
+                }
+
+                // Slight delay for toast visibility
+                setTimeout(() => window.location.href = 'index.html', 800);
+            } catch (err) {
+                let msg = err.message;
+                if (msg.includes('invalid-credential')) msg = "Incorrect email or password.";
+                if (msg.includes('email-already-in-use')) msg = "Email already registered.";
+
+                notify(msg, 'error');
+                btn.disabled = false;
+                btn.innerHTML = originalHTML;
+            }
+        };
+
+        document.getElementById('googleBtn').onclick = async () => {
+            try {
+                const provider = new GoogleAuthProvider();
+                await signInWithPopup(auth, provider);
+                notify('Google Login Successful!', 'success');
+                setTimeout(() => window.location.href = 'index.html', 800);
+            } catch (err) {
+                notify(err.message, 'error');
+            }
+        };
+    </script>
+</body>
+</body>
+
+</html>
